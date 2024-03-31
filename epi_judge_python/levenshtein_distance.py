@@ -23,9 +23,9 @@ def levenshtein_distance(A: str, B: str) -> int:
     for i in range(1, len(A) + 1):
         for j in range(1, len(B) + 1):
             dp[i][j] = min(
-                dp[i-1][j-1] + (A[i-1] != B[j-1]),
-                dp[i][j-1] + 1,
-                dp[i-1][j] + 1
+                dp[i-1][j-1] + (A[i-1] != B[j-1]), # 각 substring 에서 마지막 한 자리씩만 남겨두고 맞춘다음 마지막 자리 맞추기
+                dp[i][j-1] + 1,                    # A[:i], B[:j-1] 까지 맞춰두고 A[i] 날리기 (또는 B[j] 추가하기)
+                dp[i-1][j] + 1                     # A[:i-1], B[:j] 까지 맞춰두고 B[j] 날리기 (또는 A[i] 추가하기)
             )
 
     return dp[-1][-1]
